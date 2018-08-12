@@ -51,12 +51,26 @@ Player findNearestPlayer(Player self, std::vector<Player> players) { //pretty se
 	std::vector<Player>::iterator p;
 	for (p = players.begin(); p != players.end(); p++) {
 		float d = getDistance(self, *p);
-		if (distance < 0.0 || d < distance) {
+		if ((distance < 0.0 || d < distance) && p->getHealth() > 0 && p->getTeam() != self.getTeam()) {
 			closest = *p;
 			distance = d;
 		}
 	}
 	return closest;
+}
+
+void readPlayerBase() {
+	int op_base;
+	int num_enemy;
+	ReadProcessMemory(proc, (LPCVOID)(OP_PTR), &op_base, 4, NULL);
+	ReadProcessMemory(proc, (LPCVOID)(PLAYER_CT_PTR), &num_enemy, 4, NULL);
+	num_enemy -= 1;
+	for (int i = 1; i <= num_enemy; i++) {
+		int enemy1;
+		ReadProcessMemory(proc, (LPCVOID)(op_base + (0x4 * i)), &enemy1, 4, NULL);
+		//TODO populate player array completely 
+		player.push_back(Player(proc, enemy1));
+	}
 }
 
 
@@ -82,20 +96,12 @@ int main()
 	proc = OpenProcess(PROCESS_ALL_ACCESS , FALSE, getPID());
 	if (!proc) printf("[ERROR]: Couldn't create handle for Assult Cube (check permissions)\r\n");
 	int self_base;
-	int op_base;
-	int num_enemy; 
+	
 	ReadProcessMemory(proc, (LPCVOID)(SELF_PTR), &self_base, 4, NULL);	//is it bad to hardcode 4 in there? Like should I do sizeof(SIZE_T)? But TBH does it matter?
-	ReadProcessMemory(proc, (LPCVOID)(OP_PTR), &op_base, 4, NULL);	
-	ReadProcessMemory(proc, (LPCVOID)(PLAYER_CT_PTR), &num_enemy, 4, NULL);
-	num_enemy -= 1;
+	readPlayerBase();
 	self = Player(proc, self_base);
 
-	for (int i = 1; i <= num_enemy; i++) {
-		int enemy1;
-		ReadProcessMemory(proc, (LPCVOID)(op_base + (0x4 * i)), &enemy1, 4, NULL);
-		//TODO populate player array completely 
-		player.push_back(Player(proc, enemy1));
-	}
+	
 		
 	while (1) {
 		//printf("Self coord: %f | %f | %f %d\r\n", self.getCoord()[0], self.getCoord()[1], self.getCoord()[2]);
@@ -103,7 +109,7 @@ int main()
 		//printf("Self health: %d Op Health %d \r\n", self.getHealth(), findNearestPlayer(self, player).getHealth());
 		
 		computeLookPitchYaw(self, findNearestPlayer(self, player));
-
+		//printf("team %d \r\n self %d\r\n", player[3].getTeam(), self.getTeam());
 	
 
 	}
@@ -115,6 +121,11 @@ int main()
 
 /*
 I'll probably get screwed over somewhere since I passed everyhting by value but nvm that 
+
+TODO
+	- Don't switch target till current target is dead (health monitor)
+	- Calcualte movement vector of target and lead
+
 
 Memory Adresses Neeeded: 
 	-X Y Z offsets 
@@ -139,3 +150,5 @@ Code Structure:
 //0C76AF58  good one F8
 
 //0C76B04C
+
+

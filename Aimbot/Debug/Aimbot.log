@@ -1,4 +1,4 @@
 ﻿  Aimbot.cpp
-j:\ashwin\code\c++\assultcubeaimbot\aimbot\aimbot.cpp(73): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-j:\ashwin\code\c++\assultcubeaimbot\aimbot\aimbot.cpp(74): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+j:\ashwin\code\c++\assultcubeaimbot\aimbot\aimbot.cpp(87): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+j:\ashwin\code\c++\assultcubeaimbot\aimbot\aimbot.cpp(88): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   Aimbot.vcxproj -> J:\Ashwin\Code\C++\AssultCubeAimbot\Debug\Aimbot.exe

@@ -27,3 +27,8 @@ int Player::getHealth() {
 	ReadProcessMemory(proc, (void *)(base + HP), &health, sizeof(int), NULL);
 	return health;
 }
+
+int Player::getTeam() {
+	ReadProcessMemory(proc, (void *)(base + T2), &team, sizeof(int), NULL);
+	return team;
+}
