@@ -1,0 +1,5 @@
+﻿  Aimbot.cpp
+j:\ashwin\code\c++\assultcubeaimbot\aimbot\aimbot.cpp(59): warning C4473: 'printf' : not enough arguments passed for format string
+  j:\ashwin\code\c++\assultcubeaimbot\aimbot\aimbot.cpp(59): note: placeholders and their parameters expect 4 variadic arguments, but 3 were provided
+  j:\ashwin\code\c++\assultcubeaimbot\aimbot\aimbot.cpp(59): note: the missing variadic argument 4 is required by format string '%d'
+  Aimbot.vcxproj -> J:\Ashwin\Code\C++\AssultCubeAimbot\Debug\Aimbot.exe
