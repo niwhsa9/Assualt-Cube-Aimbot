@@ -1,5 +1,5 @@
 
 
-An Assault Cube aimbot program thats pretty fun to troll with in multiplayer, especially one shot one kill. 
+Works w/ assualt cube 2018
 
 Base addresses are probably wrong because I'm bad at this. 
